@@ -1,0 +1,9 @@
+ATLAS_URI =mongodb+srv://<username>:<password>@cluster0-4mzhk.mongodb.net/test?retryWrites=true&w=majority
+
+Steps to create username password:
+1. Goto https://www.mongodb.com/cloud/atlas
+2.  Click on "start free"
+3. Sign in.
+4. Create cluster. Choose from the given options (free ~ 512Mb).
+5. Create username and password
+6. Enter here
