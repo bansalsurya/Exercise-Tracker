@@ -1,60 +1,60 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import axios from 'axios';
 
+export default class CreateUser extends Component {
+  constructor(props) {
+    super(props);
 
-export default class CreateUser extends Component{
+    this.onChangeUsername = this.onChangeUsername.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
 
-    constructor(props) {
-        super(props);
-          //binds "this" to the whole class CreateExercises 
-          this.onChangeUsername = this.onChangeUsername.bind(this);
-          this.onSubmit = this.onSubmit.bind(this);
-  
-        this.state = {
-            username:'',
-            
-        }
+    this.state = {
+      username: ''
+    }
+  }
+
+  onChangeUsername(e) {
+    this.setState({
+      username: e.target.value
+    })
+  }
+
+  onSubmit(e) {
+    e.preventDefault();
+
+    const user = {
+      username: this.state.username
     }
 
-    onChangeUsername(e) {
-        this.setState({
-            username: e.target.value
-        }); 
-    }
+    console.log(user);
 
-    onSubmit(e){
-        e.preventDefault();
+    axios.post('http://localhost:5000/users/add', user)
+      .then(res => console.log(res.data));
 
-        const user = {
-            username: this.state.username,
-        }
+    this.setState({
+      username: ''
+    })
+  }
 
-        console.log(user)
-        //now we want the user to type multiple users 
-        this.setState({
-            username: ''
-        });
-        
-    }
-
-    render(){
-        return(
-            <div>
-                <h1>Create New User</h1>
-                <form onSubmit={this.onSubmit}>
-                    <div className="form-group">
-                        <label>Username: </label>
-                        <input 
-                            type="text"
-                            required
-                            className="form-control"
-                            onChange={this.onChangeUsername}
-                            />
-                    </div>
-                    <div className="form-group">
-                        <input type ="submit" value="Create User" className="btn btn-primary"  />
-                    </div>
-                </form>
-            </div>
-        )
-    }
+  render() {
+    return (
+      <div>
+        <h3>Create New User</h3>
+        <form onSubmit={this.onSubmit}>
+          <div className="form-group"> 
+            <label>Username: </label>
+            <input  type="text"
+                required
+                className="form-control"
+                value={this.state.username}
+                onChange={this.onChangeUsername}
+                />
+          </div>
+          <div className="form-group">
+            <input type="submit" value="Create User" className="btn btn-primary" />
+          </div>
+        </form>
+      </div>
+    )
+  }
 }
